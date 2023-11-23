@@ -30,7 +30,6 @@ function playRound(playerSelection, computerSelection) {
         return `Equal! ${computerSelection} Equals ${playerSelection}`;
     }
 }
-getComputerChoice();
 function game() {
     computerScore = 0;
     playerScore = 0;
@@ -40,6 +39,6 @@ function game() {
         console.log(`Your Choice: ${playerSelection}, Computer Choice: ${computerSelection}`);
         console.log(playRound(playerSelection, computerSelection));
     }
-    return `The Winner is: ${computerScore>playerScore? 'Computer': 'You'}.`;
+    return `Player Score: ${playerScore}, Computer Score: ${computerScore}\nThe Winner is: ${computerScore>playerScore? 'Computer': 'You'}.`;
 }
 console.log(game());
