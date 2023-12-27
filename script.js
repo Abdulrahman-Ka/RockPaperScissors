@@ -1,4 +1,15 @@
 const elements = ['rock', 'paper', 'scissors'];
+const choices = document.querySelectorAll("button");
+const result = document.querySelector(".result");
+const para = document.createElement("p");
+let playerSelection = '';
+let winnerPara = document.createElement("p");
+let scorePara = document.createElement("p");
+choices.forEach( (choice) => {choice.addEventListener("click", () =>{
+        playerSelection = choice.name;
+        game();
+})});
+
 let computerScore = 0, playerScore = 0;
 function getComputerChoice() {
     return elements[Math.floor(Math.random() * 3)];
@@ -31,14 +42,23 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 function game() {
-    computerScore = 0;
-    playerScore = 0;
-    for (let index = 0; index < 5; index++) {
-        const playerSelection = prompt("Rock Paper Scissors ?",elements[Math.floor(Math.random() * 3)]);
+    para.textContent = "";
+    winnerPara.textContent = "";
         const computerSelection = getComputerChoice();
-        console.log(`Your Choice: ${playerSelection}, Computer Choice: ${computerSelection}`);
-        console.log(playRound(playerSelection, computerSelection));
+        para.textContent += `Your Choice: ${playerSelection}, Computer Choice: ${computerSelection}\n`;
+        para.textContent = playRound(playerSelection, computerSelection);
+        scorePara.textContent =  `Player Score: ${playerScore} Computer Score: ${computerScore}`;
+    result.appendChild(para);
+    result.appendChild(scorePara);
+    if (computerScore === 5 || playerScore === 5) {
+        choices.forEach((choice) => {
+            choice.disabled = true;
+            choice.style.animation = "none";
+        })
+        winnerPara.textContent = `The Winner is: ${computerScore>playerScore? 'Computer :(': playerScore > computerScore? "You ;)": "No One"} \nReload To Play Again :)`;
+        result.appendChild(winnerPara);
+        computerScore = 0;
+        playerScore = 0;
+        return ;
     }
-    return `Player Score: ${playerScore}, Computer Score: ${computerScore}\nThe Winner is: ${computerScore>playerScore? 'Computer': 'You'}.`;
 }
-console.log(game());
